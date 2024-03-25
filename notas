@@ -1,0 +1,183 @@
+Solo se hará el analizador lexico para el código de ejemplo. Si algo no está en ese script no hace falta comprobarlo ni se evaluará
+
+
+En esta práctica leermos caracteres e identificaremos componentes léxicos para luego enviárselo al analizador sintáctico
+
+wilcoxon.py -> analizador léxico <=> analizador sintático
+			productor-consumidor
+El analizador sintáctico pide un componente léxico (llama a una función (siguienteComponenteLexico())) y el analizador léxico se lo da (componenteLexico)
+
+En este caso, el analizador sintáctica solo imprimirá por pantalla para mostrar que el analizador léxico funciona correctamente (ya se cambiará)
+
+import numpy as num
+El analizador léxico lee caracter a caracter 'i' 'm' 'p' 'o' 'r' 't' ' '. Como he llegado al espacio, hay un autómata finito que ha llegado a un estado final
+
+Representaremos en el analizador sintáctico cada componente léxico como un número. Ej.: import -> 300 (#define IMPORT 300)
+
+Forma de imprimir por pantalla los componentes léxicos:
+	<300, "import">
+El analizador léxico devuelve un STRUCT formado por un int y un puntero a char (300, "import")
+
+----------------------------------------------
+scipy . stats
+scipy -> es un identificador (léxicamente hablando) 
+	<301, "spicy">
+
+ . -> Delimitador 
+ 	<.(como entero), ".">
+
+stats -> es otro identificador
+	<301, "stats">
+-------------------------------------------------
+Para identificar que import es una palabra reservada, spicy un id... --> TABLA DE SIMBOLOS
+
+===================
+ TABLA DE SIMBOLOS
+===================
+"import"|IMPORT
+	|
+	|
+	|
+	|
+	|
+
+Se inicializa la tambla de símbolos antes de empezar en la inicialización del compilador (main.c)
+
+
+
+scipy . stats
+El analizador léxico lee y en el . para (AF estado final)
+Se busca scipy en la tabla de símbolos
+	No está, entonces se inserta y se le asigna un valor ID (que está definido en el #define)
+		
+El . no se comprueba en la TS porque ya sabemos el número que es (ASCII)
+
+OJO con el punto que ya se ha leido (Se explicará en otra clase
+
+
+
+scipy . stats
+El analizador léxico lee y en el . para (AF estado final)
+Se busca scipy en la tabla de símbolos
+	No está, entonces se inserta y se le asigna un valor ID (que está definido en el #define)
+		
+El . no se comprueba en la TS porque ya sabemos el número que es (ASCII)
+
+== OJO ==  con el punto que ya se ha leido (Se explicará en otra clase))
+
+stats -> Se busca en la tabla. No está -> se inserta en la TS con la MACRO ID
+
+
+
+
+
+CONSIDERAREMOS QUE TODOS LOS IDENTIFICADORES ESTÁN EN EL MISMO NIVEL. NO SE VAN A REPETIR NOMBRES EN DIFERENTES BLOQUES. Es el analizador sintáctico el que reconoce los bloques
+
+
+
+#define IMPORT 300
+#define ID 301
+#define PUNTO 302 NO HACE FALTA (Es un único caracter, ya tiene us ASCII)
+
+
+
+
+-----------------------------------------------
+26/2 IDENTIFICADORES \n += \t
+-----------------------------------------------
+Los """ los tretaremos como comentarios
+
+Los '\n' pueden significar líneas físicas y líneas lógicas
+Podemos seguir una instrucción en la línea siguiente, es porque puede haber paréntesis sin cerrar. Esto tiene que ver con el análisis sintáctico, para la práctica no hay que tenerlo en cuenta
+
+Si leemos '\n' enviamos el componente léxico '\n'
+
+No hace falta incorporar la implementación de la pila para la indentación
+
+
+Los operadores de tipo '+=' son un componente léxico, por lo que hay que meterlo en la TS y en definiciones.h
+	Cuando el analizador léxico encuentre un '=', no lo puede
+	devolver, sino que hay que leer el lexema más largo posible primero
+
+
+¿¿Cómo programamos los autómatas??
+	Estructura de condicionales es lo más senciillo
+		Ej. Autómata de cadenas aulfanuméricas
+				Empiezan por _ o letas ¡¡isdigit()!!
+			Autómata que identifica números...
+			Autómata que identifica un comentario
+	Cada autómata lo hacemos en una función
+
+Un identificador en python no puede empezar ni por dígitos ni por '!'
+
+Para esta práctica no metemos los números en la TS, solo reconocemos componentes léxicos
+
+
+-------------------------------------
+		4/3
+-------------------------------------
+	Sistema de entrada
+
+Empezamos con un tamaño de bloque muy grande y cuando la práctica funciones lo vamos reduciendo hasta que sea óptimo
+
+
+El sistema de entrada devuelve caracteres al analizador léxico mediante el patrón productor consumidor
+
+El sistema de entrada debe ser eficiente para que no sea un cuello de botella
+
+Doble buffer mediante el método del centinela
+"No hace falta fseek"
+scipy... -> El analizador léxico llama a la función de cadenas alfanuméricas y 
+
+
+A los arrays intermedios no les deben sobrar espacios
+
+El sistema de entrada tiene que proporcionar la funcion de devolveCaracter (que comprobará que no vuelves al bloque anterior) ya que cuando encuentra un delimitador tiene que enviarlo dos veces. Una para saber que ha terminado de leer el lexema y  otra para posteriormente analizar el delimitador
+
+ | | =| 2| 6| 5|EOF
+
+ Empezamos en el 2 -> autómata de números (si luego hace falta ya se redireccionará al de alfanuméricas)
+ Leemos 65 y cargamos el siguiente bloque
+
+ | | =| 2| 6| 5|EOF      |+ | a| c| e| l|EOF
+
+ El puntero delantero es el que indica lo que se va devolviendo, inicio muestra el inicio del lexema. Solo se actualiza cuando se encuentra el delimitador
+
+El analizador léxico le pide al sistema de entrada el lexema cuando llega a un estado final (funcion en SistemaEntrada.h). La función recorre los punteros desde inicio hasta delantero teniendo en cuenta que puede haber cualquier EOF de los arrays, estar al principio, al final, en el medio...
+
+Si el lexema es mayor de lo permitido se indicará un error pero seguriá analizando en el autómata hasta encontrar el siguiente lexema. Sería como "saltarloSi el lexema es mayor de lo permitido se indicará un error pero seguriá analizando en el autómata hasta encontrar el siguiente lexema. Sería como "saltarlo". Se va a perder una parte del lexema pero no importa, ya se sabe que es un error. Y OJO CON LOS PUNTEROS. Hay que meterlo en la TS y puede ser que dos lexemas diferentes, como solo guardas una parte, se identifiquen como uno solo. No lo contemplaremos
+
+
+PRIMERO QUE FUNCIONES, LUEGO YA LO MEJORARÁS
+
+
+
+AL FINAL SE EJECUTA EL PROGRAMA CON LA APLICACIÓN VALGRIND PARA VER SI QUEDAN PUNTEROS O MEMORIA SIN LIBERAR
+
+
+
+
+------
+11/03
+------
+Tiene que funcionar el la última versión de Ubuntu sin errores ni warnings - HECHO
+
+
+ERRORES
+Añadir error de superara el TAM_MAX_LEXEMA (Si recargo el bloque en el que está inicio ERROR por tamaño máximo de lexema superado) --> no es la mejor idea, pero se puede hacer si indicamos en la especificación el TAM_MAX_LEXEMA. De todas formas, si sale este error hay que enviar la parte inicial que sí fue leída correctamente (o solo un trozo pero hay que enviar algo) - HECHO
+
+No imprimir STRING, sino su valor (sigue sin ir a la TS) - HECHO
+
+
+
+
+DEBEMOS DE IMPRIMIR LA TS AL PRINCIPIO Y AL FINAL DEL PROGRAMA - HECHO
+
+IDENTIFICAMOS COMPONENTES LEXICOS NUM Y NUM_DECIMAL (INTEGER y FLOAT) Los hexadecimales también son INTEGER en python (o eso creo) porque a nivel de memoria le asigna la misma cantidad - HECHO
+Los exponentes son FLOATS - HECHO
+
+
+Añadir contador de línas dentro del analizador léxico (no del sistema de entrada) - HECHO
+
+
+
