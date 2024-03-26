@@ -3,7 +3,6 @@
 #include "AnalizadorSintactico.h"
 #include "definiciones.h"
 #include "TS.h"
-#include "SistemaEntrada.h"
 
 
 int main(int argc, char *argv[]) {
@@ -18,9 +17,7 @@ int main(int argc, char *argv[]) {
     printf("--- TABLA DE SIMBOLOS ---\n");
     imprimirTS();
 
-    // Inicializamos el sistema de entrada
-    inicializarSistemaEntrada(argv[1]);
-
+    leerFichero(argv[1]);
 
     // Empezamos el analisis lexico
     printf("\n\n--- ANALISIS SINTATICO ---\n");
@@ -31,8 +28,8 @@ int main(int argc, char *argv[]) {
 
     // Cerramos el archivo y liberamos memoria
     printf("\n--- Liberando memoria... ---\n");
-    finalizarSistemaEntrada();
     destruirTS();
+    cerrarFichero();
 
     printf("\n--- Fin del programa ---\n");
     return 0;

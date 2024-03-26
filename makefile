@@ -14,10 +14,10 @@ INCLUDES = -I $(HEADER_FILES_DIR)
 OUTPUT = ejecutable
 
 #ficheros .h.  Si hay varios, se precede cada uno con $(HEADER_FILES_DIR)/
-HEADERS = $(HEADER_FILES_DIR)/AnalizadorLexico.h AnalizadorSintactico.h TS.h abin.h Errores.h SistemaEntrada.h
+HEADERS = $(HEADER_FILES_DIR)/AnalizadorLexico.h AnalizadorSintactico.h TS.h abin.h Errores.h
 
 #FUENTES: todos los archivos .c necesarios
-SRCS = main.c AnalizadorLexico.c AnalizadorSintactico.c TS.c abin.c Errores.c SistemaEntrada.c
+SRCS = main.c AnalizadorLexico.c AnalizadorSintactico.c TS.c abin.c Errores.c
 
 #ficheros .o: todos los .o con un analogo .c en SRCS
 OBJS = $(SRCS:.c=.o)
@@ -33,7 +33,7 @@ $(OUTPUT): $(OBJS)
 #$@ es el nombre del fichero que se genera con la regla (.o)
 #$< es el nombre del primer prerrequisito archivo .c cuyo .o se esta generando
 %.o: %.c $(HEADERS)
-	$(CC) -c -o $@ $< $(INCLUDES)
+	$(CC) -c -lf -o $@ $< $(INCLUDES)
 	
 # REGLA 3: borra el ejecutable (prerrequisito: clean)
 cleanall: clean

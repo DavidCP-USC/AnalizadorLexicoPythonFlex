@@ -1,8 +1,6 @@
 #ifndef ERRORES_H
 #define ERRORES_H
-#include <stdio.h>
-#include "definiciones.h"
-#include "SistemaEntrada.h"
+
 
 /*
     * Función que imprime un mensaje de error en la salida 
@@ -10,6 +8,6 @@
     * @param tipo: tipo de error
     * @param error: mensaje de error
 */
-void printTipoError(int tipo, char *error);
+void printTipoError(int tipo, char *error, int linea);
 
 #endif
