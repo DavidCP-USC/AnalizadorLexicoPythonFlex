@@ -8,10 +8,12 @@ Se ha realizado teniendo en cuenta factores como el Sistema de Entrada, la Tabla
 
 * GNU GCC
 * GNU Make
+* Flex
 
 # Versiones probadas
 * GNU GCC 13.2.1 20230801
 * GNU Make 4.4.1
+* Flex 2.6.4
 
 Todas las pruebas se han hecho bajo Ubuntu 22.04.4
 

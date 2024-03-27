@@ -22,7 +22,7 @@ tipoelem siguienteComponenteLexico(){
         free(returnValue.lexema);
         returnValue.lexema = NULL;
     }
-    returnValue.lexema = malloc(sizeof(char) *yyleng);
+    returnValue.lexema = malloc(sizeof(char) *yyleng+1);
 
     if(returnValue.valor == 2){ // Se llego al EOF
         returnValue.valor = EOF;
@@ -32,7 +32,8 @@ tipoelem siguienteComponenteLexico(){
         }
     }
     else{
-        returnValue.lexema = strcpy(returnValue.lexema, yytext);
+        strncpy(returnValue.lexema, yytext, yyleng);
+        returnValue.lexema[yyleng] = '\0';
     }
 
     if(returnValue.valor == 3){ // Se encontro identificador
