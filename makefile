@@ -33,7 +33,9 @@ $(OUTPUT): $(OBJS)
 #$@ es el nombre del fichero que se genera con la regla (.o)
 #$< es el nombre del primer prerrequisito archivo .c cuyo .o se esta generando
 %.o: %.c $(HEADERS)
+	flex python.l
 	$(CC) -c -lf -o $@ $< $(INCLUDES)
+	
 	
 # REGLA 3: borra el ejecutable (prerrequisito: clean)
 cleanall: clean

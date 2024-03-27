@@ -18,22 +18,28 @@ void cerrarFichero();
 // Devuelve el siguiente componente lexico al analizador sintactico
 tipoelem siguienteComponenteLexico(){
     returnValue.valor = yylex();
+    if (returnValue.lexema != NULL){
+        free(returnValue.lexema);
+        returnValue.lexema = NULL;
+    }
     returnValue.lexema = malloc(sizeof(char) *yyleng);
 
     if(returnValue.valor == 2){ // Se llego al EOF
-            returnValue.valor = EOF;
+        returnValue.valor = EOF;
+        if (returnValue.lexema != NULL){
             free(returnValue.lexema);
             returnValue.lexema = NULL;
+        }
     }
     else{
         returnValue.lexema = strcpy(returnValue.lexema, yytext);
     }
 
-    if(returnValue.valor == 3){ // Se encontro un posible identificador
+    if(returnValue.valor == 3){ // Se encontro identificador
         returnValue.valor = obtenerValorTS(yytext);
-
     }
-                
+
+
     return returnValue;
 }
 
@@ -56,4 +62,5 @@ void leerFichero (char* nombre){
 
 void cerrarFichero(){
     fclose(yyin);
+    yylex_destroy();
 }

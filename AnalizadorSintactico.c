@@ -15,7 +15,6 @@ void analisisSintactico(){
             printf("Componente lexico -->\tLexema: %d\tValor: EOF\n", componenteLexico.valor);
             break;
         }
-    }
+    }   
     liberarMemoria(&componenteLexico);
-
-}
+}   
