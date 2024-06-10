@@ -1,4 +1,5 @@
 # Información
+Proyecto realizado para la asignatura de Compiladores e Intérpretes del grado de Ingeniería Informática de la Universidad de Santiago de Compostela.
 
 Este proyecto es una primera aproximación de un compilador de Python en el que nos centramos principalmente en el análisis léxico del lenguaje.
 Se ha realizado teniendo en cuenta factores como el Sistema de Entrada, la Tabla de Símbolos y la gestión de la memoria.
